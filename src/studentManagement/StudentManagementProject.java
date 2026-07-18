@@ -13,7 +13,8 @@ public class StudentManagementProject {
 			System.out.println("Which operation do you want to do!");
 			System.out.println("1. Add details of new student.");
 			System.out.println("2. Display details of students.");
-			System.out.println("3. Exit");
+			System.out.println("3. Search Student");
+			System.out.println("4. Exit");
 			
 			int choice = sc.nextInt();
 			sc.nextLine();
@@ -25,7 +26,10 @@ public class StudentManagementProject {
 			case 2 : displayStudents(students);
 			break;
 			
-			case 3 : isRunning = false;
+			case 3 : searchStudent(students, sc);
+		    break;
+		    
+			case 4 : isRunning = false;
 			     System.out.println("\nThank you for using the Student Management System.");
 			     System.out.println("Have a great day!");
 				break;
@@ -55,9 +59,9 @@ public class StudentManagementProject {
 			System.out.print("Enter Father's Name: ");
 			String fName = sc.nextLine();
 			
-			Student s = new Student(name, id, age, course, fName);
+			Student student = new Student(name, id, age, course, fName);
 			
-			students.add(s);
+			students.add(student);
 			System.out.println("Student added successfully!");
 			System.out.println();
 	}
@@ -73,6 +77,31 @@ public class StudentManagementProject {
 			student.displayDetails();
 			System.out.println();
 		}
+	}
+	
+	public static void searchStudent(ArrayList<Student> students, Scanner sc) {
+	    if(students.isEmpty()) {
+	        System.out.println("No students available.");
+	        return;
+	    }
+
+	    System.out.print("Enter Student ID to search: ");
+	    long searchId = sc.nextLong();
+	    boolean found = false;
+
+	    for(Student student : students) {
+	        if(student.getId() == searchId) {
+	            System.out.println("Student Found!");
+	            student.displayDetails();
+	            found = true;
+	            break;
+	        }
+	    }
+
+	    if(!found) {
+	        System.out.println("Student not found.");
+	    }
+	    System.out.println();
 	}
 
 }
