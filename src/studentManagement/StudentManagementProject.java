@@ -15,7 +15,8 @@ public class StudentManagementProject {
 			System.out.println("2. Display details of students.");
 			System.out.println("3. Search Student");
 			System.out.println("4. Update Student");
-			System.out.println("5. Exit");
+			System.out.println("5. Delete Student");
+			System.out.println("6. Exit");
 			
 			int choice = sc.nextInt();
 			sc.nextLine();
@@ -33,11 +34,16 @@ public class StudentManagementProject {
 			case 4:
 			    updateStudent(students, sc);
 			    break;
+			    
+			case 5:
+			    deleteStudent(students, sc);
+			    break;
 		    
-			case 5 : isRunning = false;
+			case 6 : isRunning = false;
 			     System.out.println("\nThank you for using the Student Management System.");
 			     System.out.println("Have a great day!");
 				break;
+				
 				
 			default:
 			    System.out.println("Invalid choice! Please enter a valid option.");
@@ -158,6 +164,32 @@ public class StudentManagementProject {
 		if(!found) {
 			System.out.println("Student not found.");
 		}
+	}
+	
+	public static void deleteStudent(ArrayList<Student> students, Scanner sc) {
+		if(students.isEmpty()) {
+			System.out.println("No students available.");
+			return;
+		}
+		
+		System.out.print("Enter student ID to delete: ");
+		long deleteId = sc.nextLong();
+		sc.nextLine();
+		boolean found = false;
+		
+		for(int i=0; i<students.size(); i++) {
+			if(students.get(i).getId() == deleteId) {
+				students.remove(i);
+				System.out.println("Student deleted successfully!");
+				found = true;
+				break;
+			}
+		}
+		
+		if(!found) {
+			System.out.println("Student not found.");
+		}
+		System.out.println();
 	}
 
 }
