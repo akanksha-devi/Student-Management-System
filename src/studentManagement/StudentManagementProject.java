@@ -14,7 +14,8 @@ public class StudentManagementProject {
 			System.out.println("1. Add details of new student.");
 			System.out.println("2. Display details of students.");
 			System.out.println("3. Search Student");
-			System.out.println("4. Exit");
+			System.out.println("4. Update Student");
+			System.out.println("5. Exit");
 			
 			int choice = sc.nextInt();
 			sc.nextLine();
@@ -29,7 +30,11 @@ public class StudentManagementProject {
 			case 3 : searchStudent(students, sc);
 		    break;
 		    
-			case 4 : isRunning = false;
+			case 4:
+			    updateStudent(students, sc);
+			    break;
+		    
+			case 5 : isRunning = false;
 			     System.out.println("\nThank you for using the Student Management System.");
 			     System.out.println("Have a great day!");
 				break;
@@ -87,6 +92,7 @@ public class StudentManagementProject {
 
 	    System.out.print("Enter Student ID to search: ");
 	    long searchId = sc.nextLong();
+	    sc.nextLine();
 	    boolean found = false;
 
 	    for(Student student : students) {
@@ -102,6 +108,56 @@ public class StudentManagementProject {
 	        System.out.println("Student not found.");
 	    }
 	    System.out.println();
+	}
+	
+	public static void updateStudent(ArrayList<Student> students, Scanner sc) {
+		if(students.isEmpty()) {
+			System.out.println("No students available.");
+			return;
+		}
+		
+		System.out.println("Enter student ID to update: ");
+		long searchId = sc.nextLong();
+		sc.nextLine();
+		boolean found = false;
+		
+		for(Student student : students) {
+			if(student.getId() == searchId) {
+				System.out.println("Current Details:");
+				student.displayDetails();
+				System.out.println("\nEnter new details:");				
+				
+				System.out.print("Enter Name: ");
+				String name = sc.nextLine();
+				
+				System.out.print("Enter ID: ");
+				long id = sc.nextLong();
+
+				System.out.print("Enter Age: ");
+				int age = sc.nextInt();
+				sc.nextLine(); 
+
+				System.out.print("Enter Course: ");
+				String course = sc.nextLine();
+
+				System.out.print("Enter Father's Name: ");
+				String fName = sc.nextLine();
+				
+				student.setName(name);
+				student.setId(id);
+				student.setAge(age);
+				student.setCourse(course);
+				student.setfName(fName);
+				
+				System.out.println("Student updated successfully!");
+				found = true;
+				break;
+			}
+		}
+		
+		if(!found) {
+			System.out.println("Student not found.");
+		}
 	}
 
 }
