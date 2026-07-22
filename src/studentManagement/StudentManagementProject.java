@@ -122,7 +122,7 @@ public class StudentManagementProject {
 			return;
 		}
 		
-		System.out.println("Enter student ID to update: ");
+		System.out.print("Enter student ID to update: ");
 		long searchId = sc.nextLong();
 		sc.nextLine();
 		boolean found = false;
@@ -131,33 +131,85 @@ public class StudentManagementProject {
 			if(student.getId() == searchId) {
 				System.out.println("Current Details:");
 				student.displayDetails();
-				System.out.println("\nEnter new details:");				
 				
-				System.out.print("Enter Name: ");
-				String name = sc.nextLine();
-				
-				System.out.print("Enter ID: ");
-				long id = sc.nextLong();
+				System.out.println("\nWhat do you want to update?");
+				System.out.println("1. Name");
+				System.out.println("2. ID");
+				System.out.println("3. Age");
+				System.out.println("4. Course");
+				System.out.println("5. Father's Name");
+				System.out.println("6. Update All Details");
+				System.out.println("7. Cancel");
 
-				System.out.print("Enter Age: ");
-				int age = sc.nextInt();
-				sc.nextLine(); 
-
-				System.out.print("Enter Course: ");
-				String course = sc.nextLine();
-
-				System.out.print("Enter Father's Name: ");
-				String fName = sc.nextLine();
+				int choice = sc.nextInt();
+				sc.nextLine();	
 				
-				student.setName(name);
-				student.setId(id);
-				student.setAge(age);
-				student.setCourse(course);
-				student.setfName(fName);
+                switch(choice) {
+                case 1: {
+                    System.out.print("Enter new Name: ");
+                    String name = sc.nextLine();
+                    student.setName(name);
+                    System.out.println("Name updated successfully!");
+                    showUpdatedDetails(student);
+                    break;
+                }
+                    
+                case 2: {
+                	System.out.print("Enter new ID: ");
+                	long id = sc.nextLong();
+                    sc.nextLine();
+                	student.setId(id);
+                	System.out.println("ID updated successfully!");
+                	showUpdatedDetails(student);
+                	break;
+                }
+                	
+                case 3: {
+                    System.out.print("Enter new Age: ");
+                    int age = sc.nextInt();
+                    sc.nextLine();
+                    student.setAge(age);
+                    System.out.println("Age updated successfully!");
+                    showUpdatedDetails(student);
+                    break;
+                }
+                    
+                case 4: {
+                    System.out.print("Enter new Course: ");
+                    String course = sc.nextLine();
+                    student.setCourse(course);
+                    System.out.println("Course updated successfully!");
+                    showUpdatedDetails(student);
+                    break;
+                }
+                    
+                case 5: {
+                    System.out.print("Enter new Father's Name: ");
+                    String fName = sc.nextLine();
+                    student.setfName(fName);
+                    System.out.println("Father's name updated successfully!");
+                    showUpdatedDetails(student);
+                    break;
+                }
+                    
+                case 6: {
+                	updateAllDetails(student, sc);
+    				break;
+                }
+    				
+                case 7: {
+                    System.out.println("Update cancelled.");
+                    break;
+                }
+                    
+                default: {
+                    System.out.println("Invalid choice.");
+                    break;
+                }
+                }
+                found = true;
+                break;
 				
-				System.out.println("Student updated successfully!");
-				found = true;
-				break;
 			}
 		}
 		
@@ -165,6 +217,7 @@ public class StudentManagementProject {
 			System.out.println("Student not found.");
 		}
 	}
+	
 	
 	public static void deleteStudent(ArrayList<Student> students, Scanner sc) {
 		if(students.isEmpty()) {
@@ -191,5 +244,41 @@ public class StudentManagementProject {
 		}
 		System.out.println();
 	}
+	
+	
+	public static void updateAllDetails(Student student, Scanner sc) {
+		System.out.print("Enter new Name: ");
+		String name = sc.nextLine();
+		
+		System.out.print("Enter new ID: ");
+		long id = sc.nextLong();
 
+		System.out.print("Enter new Age: ");
+		int age = sc.nextInt();
+		sc.nextLine(); 
+
+		System.out.print("Enter new Course: ");
+		String course = sc.nextLine();
+
+		System.out.print("Enter new Father's Name: ");
+		String fName = sc.nextLine();
+		
+		student.setName(name);
+		student.setId(id);
+		student.setAge(age);
+		student.setCourse(course);
+		student.setfName(fName);
+		
+		System.out.println("Student updated successfully!");
+		System.out.println();
+		System.out.println("Updated Details:");
+		student.displayDetails();
+	}
+	
+	
+	public static void showUpdatedDetails(Student student) {
+	    System.out.println();
+	    System.out.println("Updated Details:");
+	    student.displayDetails();
+	}
 }
