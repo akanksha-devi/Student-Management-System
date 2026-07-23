@@ -59,6 +59,12 @@ public class StudentManagementProject {
 			
 			System.out.print("Enter ID: ");
 			long id = sc.nextLong();
+			boolean exist = isIdExists(students, id);
+			if(exist) {
+				System.out.println("Student ID already exist.");
+				System.out.println();
+				return;
+			} 
 
 			System.out.print("Enter Age: ");
 			int age = sc.nextInt();
@@ -158,6 +164,12 @@ public class StudentManagementProject {
                 	System.out.print("Enter new ID: ");
                 	long id = sc.nextLong();
                     sc.nextLine();
+                    boolean exists = isIdExists(students, id, student);
+                    if(exists) {
+                    	System.out.println("Student ID already exists.");
+                    	System.out.println();
+                    	return;
+                    }
                 	student.setId(id);
                 	System.out.println("ID updated successfully!");
                 	showUpdatedDetails(student);
@@ -193,7 +205,7 @@ public class StudentManagementProject {
                 }
                     
                 case 6: {
-                	updateAllDetails(student, sc);
+                	updateAllDetails(students, student, sc);
     				break;
                 }
     				
@@ -246,12 +258,19 @@ public class StudentManagementProject {
 	}
 	
 	
-	public static void updateAllDetails(Student student, Scanner sc) {
+	public static void updateAllDetails(ArrayList<Student> students, Student student, Scanner sc) {
 		System.out.print("Enter new Name: ");
 		String name = sc.nextLine();
 		
 		System.out.print("Enter new ID: ");
 		long id = sc.nextLong();
+		sc.nextLine();
+		boolean exists = isIdExists(students, id, student);
+		if(exists) {
+			System.out.println("Student ID already exist.");
+			System.out.println();
+			return;
+		} 
 
 		System.out.print("Enter new Age: ");
 		int age = sc.nextInt();
@@ -270,9 +289,7 @@ public class StudentManagementProject {
 		student.setfName(fName);
 		
 		System.out.println("Student updated successfully!");
-		System.out.println();
-		System.out.println("Updated Details:");
-		student.displayDetails();
+		showUpdatedDetails(student);
 	}
 	
 	
@@ -280,5 +297,27 @@ public class StudentManagementProject {
 	    System.out.println();
 	    System.out.println("Updated Details:");
 	    student.displayDetails();
+	}
+	
+	
+	public static boolean isIdExists(ArrayList<Student> students, long id) {
+		for(Student student : students) {
+			if(student.getId() == (id)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean isIdExists(ArrayList<Student> students, long id, Student currentStudent) {
+		for(Student student : students) {
+			if(student == currentStudent) {
+				continue;
+			}
+			if(student.getId() == id) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
